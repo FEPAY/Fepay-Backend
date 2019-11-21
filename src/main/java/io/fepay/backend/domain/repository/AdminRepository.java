@@ -12,4 +12,6 @@ public interface AdminRepository extends ReactiveMongoRepository<Admin, String> 
 
     Mono<Admin> findByEmail(String email);
 
+    Mono<Admin> findByFestivalId(String festivalId);
+
 }

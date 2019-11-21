@@ -19,8 +19,10 @@ public class SignUpForm {
 
     private String phone;
 
+    private String festival_id = "";
+
     public User toUser() {
-        return new User(user_id, password, name, phone, 0);
+        return new User(user_id, password, name, phone, 0, festival_id);
     }
 
 }

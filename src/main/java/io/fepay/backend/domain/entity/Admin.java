@@ -1,6 +1,7 @@
 package io.fepay.backend.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.fepay.backend.domain.payload.FestivalInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,5 +42,9 @@ public class Admin {
         this.phone = phone;
         this.festivalName = festivalName;
         this.closingDate = closingDate;
+    }
+
+    public FestivalInfo toFestivalInfo() {
+        return new FestivalInfo(festivalId, festivalName);
     }
 }
