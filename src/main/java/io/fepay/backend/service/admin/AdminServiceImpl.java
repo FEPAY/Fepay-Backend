@@ -1,6 +1,7 @@
 package io.fepay.backend.service.admin;
 
 import io.fepay.backend.domain.entity.Admin;
+import io.fepay.backend.domain.payload.FestivalInfo;
 import io.fepay.backend.domain.payload.TokenResponse;
 import io.fepay.backend.domain.repository.AdminRepository;
 import io.fepay.backend.exception.InvalidUserCredentialException;
@@ -10,8 +11,11 @@ import io.fepay.backend.service.token.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -51,6 +55,18 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Mono findById(String email) {
         return adminRepository.findByEmail(email);
+    }
+
+    @Override
+    public Flux findAllFestivals() {
+        return adminRepository.findAll()
+                .flatMap(admin -> Flux.just(admin.toFestivalInfo()));
+    }
+
+    @Override
+    public Mono findByFestivalId(String festivalId) {
+        return adminRepository.findByFestivalId(festivalId)
+                .flatMap(admin -> Mono.just(admin.toFestivalInfo()));
     }
 
     /**
